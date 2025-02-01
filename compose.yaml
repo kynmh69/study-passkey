@@ -13,6 +13,12 @@ services:
       - database
     env_file:
       - ./src/api/.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 1s
+      timeout: 3s
+      retries: 10
+    restart: on-failure
   app:
     build:
       context: .

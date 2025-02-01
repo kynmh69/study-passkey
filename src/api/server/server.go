@@ -10,6 +10,7 @@ func Start(e *echo.Echo) {
 	middleware.SetTimeout(e)
 	middleware.SetRequestLoggerConfig(e)
 	middleware.SetRecover(e)
+	middleware.SetCors(e)
 	route.SetHandlers(e)
 	e.Logger.Fatal(e.Start(":8080"))
 }
