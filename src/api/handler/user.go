@@ -15,6 +15,10 @@ func GetUserById() echo.HandlerFunc {
 		id, _ := strconv.Atoi(c.Param("id"))
 
 		client := db.NewClient()
+		if err := client.Connect(); err != nil {
+			logger.Logger.Error(err.Error())
+			return c.JSON(http.StatusInternalServerError, err.Error())
+		}
 
 		defer func() {
 			if err := client.Disconnect(); err != nil {
