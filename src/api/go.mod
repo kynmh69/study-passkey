@@ -3,16 +3,17 @@ module github.com/kynmh69/study-passkey
 go 1.23.5
 
 require (
+	github.com/go-webauthn/webauthn v0.11.2
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/shopspring/decimal v1.4.0
 	github.com/steebchen/prisma-client-go v0.46.0
+	github.com/valkey-io/valkey-go v1.0.53
 	go.uber.org/zap v1.27.0
 )
 
 require (
 	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
-	github.com/go-webauthn/webauthn v0.11.2 // indirect
 	github.com/go-webauthn/x v0.1.16 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/google/go-tpm v0.9.3 // indirect

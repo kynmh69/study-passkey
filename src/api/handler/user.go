@@ -6,14 +6,13 @@ import (
 	"github.com/kynmh69/study-passkey/prisma/db"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strconv"
 )
 
 // GetUserById is a function that returns a handler function that gets a user by id.
 func GetUserById() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		// Get the id from the request parameter.
-		id, _ := strconv.Atoi(c.Param("id"))
+		id := c.Param("id")
 
 		client := db.NewClient()
 		if err := client.Connect(); err != nil {
@@ -60,9 +59,9 @@ func CreateUser() echo.HandlerFunc {
 		c.Logger().Debug("connected to database")
 		// Create a user.
 		user, err := client.User.CreateOne(
+			db.User.ID.Set(""),
 			db.User.Email.Set(""),
 			db.User.Username.Set(""),
-			db.User.Passkey.Set(""),
 		).Exec(c.Request().Context())
 		if err != nil {
 			c.Logger().Error(err)

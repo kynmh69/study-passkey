@@ -11,10 +11,11 @@ services:
       - study-passkey
     depends_on:
       - database
+      - valkey
     env_file:
       - ./src/api/.env
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
       interval: 1m
       timeout: 3s
       retries: 10
@@ -39,6 +40,7 @@ services:
       MYSQL_DATABASE: study_passkey
       MYSQL_USER: app
       MYSQL_PASSWORD: password
+      TZ: Asia/Tokyo
     ports:
       - "3306:3306"
     networks:
@@ -46,20 +48,27 @@ services:
     volumes:
       - passkey-db:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 1s
       timeout: 3s
       retries: 10
     restart: on-failure
   valkey:
-    image: valkey/valkey:8.0
+    build:
+      context: .
+      dockerfile: ./docker/valkey/Dockerfile
     volumes:
       - passkey-valkey:/data
+      - ./src/api/tmp/log:/var/log
+    environment:
+      TZ: Asia/Tokyo
     ports:
       - "6739:6739"
+    networks:
+      - study-passkey
 networks:
   study-passkey:
-      driver: bridge
+    driver: bridge
 volumes:
   passkey-db:
   passkey-valkey:
