@@ -8,4 +8,6 @@ RUN npm i
 
 COPY ./src/app .
 
+EXPOSE 3000
+
 CMD ["npm", "run", "dev"]

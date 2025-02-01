@@ -13,6 +13,21 @@ services:
       - database
     env_file:
       - ./src/api/.env
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src/app:/next/app
+    networks:
+      - study-passkey
+    depends_on:
+      - database
+      - api
+    env_file:
+      - ./src/app/.env
   database:
     image: mysql:8.4
     environment:
