@@ -26,8 +26,6 @@ services:
     depends_on:
       - database
       - api
-    env_file:
-      - ./src/app/.env
   database:
     image: mysql:8.4
     environment:
