@@ -14,10 +14,9 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id
   email     String   @unique
   username  String   @unique
-  passkey   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
