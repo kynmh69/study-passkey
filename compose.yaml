@@ -51,8 +51,15 @@ services:
       timeout: 3s
       retries: 10
     restart: on-failure
+  valkey:
+    image: valkey/valkey:8.0
+    volumes:
+      - passkey-valkey:/data
+    ports:
+      - "6739:6739"
 networks:
   study-passkey:
       driver: bridge
 volumes:
   passkey-db:
+  passkey-valkey:

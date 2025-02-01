@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"github.com/kynmh69/study-passkey/dto"
 	"github.com/kynmh69/study-passkey/logger"
 	"github.com/kynmh69/study-passkey/prisma/db"
-	"github.com/kynmh69/study-passkey/utils"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -18,7 +18,7 @@ func GetUserById() echo.HandlerFunc {
 		client := db.NewClient()
 		if err := client.Connect(); err != nil {
 			logger.Logger.Error(err.Error())
-			return c.JSON(http.StatusInternalServerError, utils.NewHttpError(err.Error()))
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
 
 		defer func() {
@@ -35,7 +35,7 @@ func GetUserById() echo.HandlerFunc {
 		// If an error occurs, return a 404 status code.
 		if err != nil {
 			c.Logger().Error(err)
-			return c.JSON(http.StatusNotFound, utils.NewHttpError(err.Error()))
+			return echo.NewHTTPError(http.StatusNotFound, err.Error())
 		}
 		// Return the user.
 		return c.JSON(http.StatusOK, user)
@@ -45,6 +45,10 @@ func GetUserById() echo.HandlerFunc {
 // CreateUser is a function that returns a handler function that creates a user.
 func CreateUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		var newUser dto.CreateUserInput
+		if err := c.Bind(&newUser); err != nil {
+			return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		}
 		client := db.NewClient()
 
 		defer func() {
@@ -62,7 +66,7 @@ func CreateUser() echo.HandlerFunc {
 		).Exec(c.Request().Context())
 		if err != nil {
 			c.Logger().Error(err)
-			return c.JSON(http.StatusInternalServerError, utils.NewHttpError(err.Error()))
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
 		return c.JSON(http.StatusOK, user)
 	}
