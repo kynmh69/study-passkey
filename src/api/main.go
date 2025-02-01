@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	utils.InitValkeyClient()
-	defer utils.ValkeyClient.Close()
+	utils.NewSessionManager()
+	defer utils.Sessions.Valkey.Close()
 	e := echo.New()
 	server.Start(e)
 }

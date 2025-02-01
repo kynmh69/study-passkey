@@ -7,19 +7,16 @@ import (
 	"go.uber.org/zap"
 )
 
-var (
-	ValkeyClient valkey.Client
-)
-
 // InitValkeyClient is a function to initialize the Valkey client.
-func InitValkeyClient() {
+func InitValkeyClient() valkey.Client {
 	var err error
 	ipAddr := LookupEnv("VALKEY_HOST")
 	port := LookupEnv("VALKEY_PORT")
 	initAdds := []string{fmt.Sprintf("%s:%s", ipAddr, port)}
-	ValkeyClient, err = valkey.NewClient(valkey.ClientOption{InitAddress: initAdds})
+	valkeyClient, err := valkey.NewClient(valkey.ClientOption{InitAddress: initAdds})
 	if err != nil {
 		logger.Logger.Panic(err.Error(), zap.String("host", ipAddr), zap.String("port", port))
 	}
 	logger.Logger.Info("Valkey client initialized", zap.String("host", ipAddr), zap.String("port", port))
+	return valkeyClient
 }
