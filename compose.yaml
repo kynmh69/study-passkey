@@ -6,4 +6,32 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      -
+      - ./src/api:/go/api
+    networks:
+      - study-passkey
+    depends_on:
+      - database
+  database:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: study_passkey
+      MYSQL_USER: app
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    networks:
+      - study-passkey
+    volumes:
+      - passkey-db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 1s
+      timeout: 3s
+      retries: 10
+    restart: on-failure
+networks:
+  study-passkey:
+      driver: bridge
+volumes:
+  passkey-db:
