@@ -11,6 +11,8 @@ services:
       - study-passkey
     depends_on:
       - database
+    env_file:
+      - ./src/api/.env
   database:
     image: mysql:8.4
     environment:

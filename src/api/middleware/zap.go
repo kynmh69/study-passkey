@@ -16,7 +16,7 @@ func SetRequestLoggerConfig(e *echo.Echo) {
 				zap.String("uri", v.URI),
 				zap.Int("status", v.Status),
 				zap.String("method", v.Method),
-				zap.String("path", v.URIPath),
+				zap.String("path", v.RoutePath),
 				zap.String("host", v.Host),
 				zap.String("remote_ip", v.RemoteIP),
 				zap.String("latency", v.Latency.String()),

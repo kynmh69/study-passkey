@@ -37,6 +37,7 @@ func GetUserById() echo.HandlerFunc {
 	}
 }
 
+// CreateUser is a function that returns a handler function that creates a user.
 func CreateUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		client := db.NewClient()
