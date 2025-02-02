@@ -8,9 +8,11 @@ import (
 	"github.com/kynmh69/study-passkey/consts"
 	"github.com/kynmh69/study-passkey/domain"
 	"github.com/kynmh69/study-passkey/dto"
+	"github.com/kynmh69/study-passkey/logger"
 	"github.com/kynmh69/study-passkey/prisma/db"
 	"github.com/kynmh69/study-passkey/utils"
 	"github.com/labstack/echo/v4"
+	"go.uber.org/zap"
 	"net/http"
 )
 
@@ -19,7 +21,7 @@ func GetUserById() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		// Get the id from the request parameter.
 		id := c.Request().Header.Get("Authorization")
-
+		logger.Logger.Debug("", zap.String("id", id))
 		c.Logger().Debug("connected to database")
 		// Get the user by id.
 		user, err := utils.Client.User.FindUnique(

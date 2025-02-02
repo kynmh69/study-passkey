@@ -11,8 +11,8 @@ import (
 // InitValkeyClient is a function to initialize the Valkey client.
 func InitValkeyClient() valkey.Client {
 	var err error
-	ipAddr := LookupEnv(consts.VALKEY_HOST)
-	port := LookupEnv(consts.VALKEY_PORT)
+	ipAddr := LookupEnv(consts.ValKeyHost)
+	port := LookupEnv(consts.ValKeyPort)
 	initAdds := []string{fmt.Sprintf("%s:%s", ipAddr, port)}
 	valkeyClient, err := valkey.NewClient(valkey.ClientOption{InitAddress: initAdds})
 	if err != nil {
