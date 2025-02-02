@@ -13,12 +13,11 @@ func SetHandlers(e *echo.Echo) {
 	})
 	api := e.Group("/api")
 	v1 := api.Group("/v1")
-	v1.POST("/registration/begin", handler.BeginRegistration())
-	v1.POST("/registration/complete", handler.CompleteRegistration())
+	passkey := v1.Group("/passkey")
+	passkey.POST("/registration/begin", handler.BeginRegistration())
+	passkey.POST("/registration/complete", handler.CompleteRegistration())
 
-	protectApi := e.Group("/api")
-	protectV1 := protectApi.Group("/v1")
-	protectV1.Use(middleware.SessionMiddleware)
+	protectV1 := v1.Group("/protect", middleware.SessionMiddleware)
 	protectV1.GET("/users/profile", handler.GetUserById())
 	protectV1.POST("/logout", handler.Logout())
 }

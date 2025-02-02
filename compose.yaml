@@ -27,12 +27,15 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./src/app:/next/app
+      - ./src/app:/next/app:rw
+      - /next/app/node_modules
     networks:
       - study-passkey
     depends_on:
       - database
       - api
+    environment:
+      CHOKIDAR_USEPOLLING: true
   database:
     image: mysql:8.4
     environment:
