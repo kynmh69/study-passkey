@@ -22,8 +22,3 @@ func SessionMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		return next(c)
 	}
 }
-
-// SetSessionMiddleware is a function to set the session middleware.
-func SetSessionMiddleware(e *echo.Echo) {
-	e.Use(SessionMiddleware)
-}

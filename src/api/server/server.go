@@ -11,7 +11,6 @@ func Start(e *echo.Echo) {
 	middleware.SetRequestLoggerConfig(e)
 	middleware.SetRecover(e)
 	middleware.SetCors(e)
-	middleware.SetSessionMiddleware(e)
 	route.SetHandlers(e)
 	e.Logger.Fatal(e.Start(":8080"))
 }
