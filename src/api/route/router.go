@@ -16,7 +16,8 @@ func SetHandlers(e *echo.Echo) {
 	v1.POST("/registration/begin", handler.BeginRegistration())
 	v1.POST("/registration/complete", handler.CompleteRegistration())
 
-	protectV1 := v1.Group("")
+	protectApi := e.Group("/api")
+	protectV1 := protectApi.Group("/v1")
 	protectV1.Use(middleware.SessionMiddleware)
 	protectV1.GET("/users/profile", handler.GetUserById())
 	protectV1.POST("/logout", handler.Logout())
