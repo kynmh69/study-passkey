@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"github.com/kynmh69/study-passkey/consts"
 	"github.com/kynmh69/study-passkey/logger"
 	"github.com/valkey-io/valkey-go"
 	"go.uber.org/zap"
@@ -10,8 +11,8 @@ import (
 // InitValkeyClient is a function to initialize the Valkey client.
 func InitValkeyClient() valkey.Client {
 	var err error
-	ipAddr := LookupEnv("VALKEY_HOST")
-	port := LookupEnv("VALKEY_PORT")
+	ipAddr := LookupEnv(consts.VALKEY_HOST)
+	port := LookupEnv(consts.VALKEY_PORT)
 	initAdds := []string{fmt.Sprintf("%s:%s", ipAddr, port)}
 	valkeyClient, err := valkey.NewClient(valkey.ClientOption{InitAddress: initAdds})
 	if err != nil {

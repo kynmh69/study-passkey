@@ -14,9 +14,12 @@ datasource db {
 }
 
 model User {
-  id        String   @id
-  email     String   @unique
-  username  String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id
+  email       String   @unique
+  username    String   @unique
+  credentials Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("users")
 }
