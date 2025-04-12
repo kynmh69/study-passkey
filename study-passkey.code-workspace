@@ -5,6 +5,9 @@
 		}
 	],
 	"settings": {
-		"editor.fontSize": 12
+		"editor.fontSize": 12,
+		"go.formatTool": "goimports",
+		"go.gopath": "~/go",
+		"go.goroot": "/usr/local/go"
 	}
 }
