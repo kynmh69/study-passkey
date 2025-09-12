@@ -1,6 +1,6 @@
 module github.com/kynmh69/study-passkey
 
-go 1.23.5
+go 1.24.2
 
 require (
 	github.com/go-webauthn/webauthn v0.11.2
